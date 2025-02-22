@@ -1,0 +1,80 @@
+diff a/src/pages/inventory/modifier/view_modifier.vue b/src/pages/inventory/modifier/view_modifier.vue	(rejected hunks)
+@@ -111,6 +111,78 @@
+                     </div>
+                 </div>
+             </div>
++            <div class="row mt-5">
++                <div class="col-12">
++                    <div class="card">
++                        <div class="row">
++                            <div class="col-12 text-end">
++                                <div class="skl-w" style="height:32px;width:120px;margin:13px 0 13px auto;"></div>
++                            </div>
++                        </div>
++                        <div v-if="is_options_listing">
++                             <beat-loader color="gray" :size="'15px'" class="pt-2 pe-2">  </beat-loader>
++                        </div>
++                        <table v-else class="table table-condensed table-bordered">
++                            <thead>
++                                <tr>
++                                    <th class="fw-bold" width="80%">
++                                        <div class="skl-w" style="width:80px;"></div>
++                                    </th>
++                                    <!-- <th class="fw-bold" width="10%">Sale Price</th> -->
++                                    <th class="fw-bold" width="15%">
++                                        <div class="skl-w" style="width:80px;"></div>
++                                    </th>
++                                    <th scope="col" class="text-end" width="5%">
++                                        <div class="skl-w"></div>
++                                    </th>
++                                </tr>
++                            </thead>
++                            <tbody>
++                                <tr v-if="modifier_options != ''" v-for="(option,option_index) in modifier_options" :key="option_index">
++                                    <td class="py-4">
++                                        
++                                        <span class="fs-5" style="display:inline-block;">
++                                            <div class="skl-w" style="height:14px;width:80px;"></div>
++                                        </span>
++                                        <span style="display:inline-block;">
++                                            <div class="skl-w" style="width:40px;"></div>
++                                        </span>
++                                        <small style="display:inline-block;">
++                                            <div class="skl-w" style="width:30px;"></div>
++                                        </small>
++                                        
++                                        <table v-if="option.items.length">
++                                            <tbody>
++                                                <tr v-for="item in option.items">
++                                                    <td class="text-secondary ps-5">{{ item.product.name  }}</td>
++                                                    <td class="text-secondary"> 
++                                                        {{ item.quantity  }} 
++                                                        <span v-if="item.measurement_unit_id != null">{{  item.measurement_unit.unit_name  }}</span>
++                                                        <span v-else>{{ $t('Units') }}</span>
++                                                    </td>
++                                                </tr>
++                                            </tbody>
++                                        </table>
++                                    
++                                    </td>
++                                    <!-- <td>{{  option.sale_price }}</td> -->
++                                    <td>
++                                        <div class="skl-w" style="width:60px;"></div>
++                                    </td>
++                                    <td class="text-end">
++                                       <div class="skl-w" style="height:34px;width:34px;"></div>
++                                    </td>
++                                </tr>
++                                <tr v-else>
++                                    <td class="text-center py-3" colspan="9"><div class="skl-w" style="width:150px;margin:0 auto;"></div></td>
++                                    
++                                </tr>
++                            </tbody>
++                            
++                        </table>
++                    </div>
++                </div>
++            </div>
+ 
+             <div class="row">
+                 <div class="col-md-12">

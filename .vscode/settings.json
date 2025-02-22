@@ -1,0 +1,10 @@
+{
+    "i18n-ally.localesPaths": [
+        "src/i18n",
+        "src/lang"
+    ],
+    "i18n-easy.localesPaths": [
+        "src/i18n",
+        "src/lang"
+    ]
+}

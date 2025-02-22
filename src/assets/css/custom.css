@@ -1,0 +1,121 @@
+
+.error{
+    color:#DC3545;
+}
+
+
+.listing-image{
+    width: 40px;
+    min-width: 40px;
+    height: 40px;
+    object-fit: contain;
+    /* border-radius: 50px; */
+}
+.highlighted-list-item{
+    font-size:16px;
+}
+/* vue datepicker */
+/* custom font size */
+.fs-11{
+    font-size: 11px !important;
+}
+
+.multiselect-tag{
+    background: var(--primary) !important;
+}
+
+.link-disabled{
+    cursor: not-allowed;
+    opacity: 0.5;
+    text-decoration: none;
+}
+
+.text-area{
+    height: 100px !important;
+}
+
+.no-height{
+    height: 0px;
+}
+
+.no-padding{
+    padding: 0px;
+}
+
+.count-badge{
+    padding: 6px 9px 4px 9px;
+    border-radius: 25px;
+    padding-bottom: 4px;
+}
+
+/* .out-of-stock{
+    border:1px solid rgb(211, 16, 16,0.3) !important;
+}
+.low-stock{
+    border:1px solid rgb(211, 16, 16) !important;
+} */
+
+.multiselect-search{
+    background: transparent !important;
+}
+
+.fsize-7{
+    font-size: 7px;
+}
+.fsize-8{
+    font-size: 8px;
+}
+.fsize-9{
+    font-size: 9px;
+}
+.fsize-10{
+    font-size: 10px;
+}
+.fsize-11{
+    font-size: 11px;
+}
+.fsize-12{
+    font-size: 12px;
+}
+.fsize-13{
+    font-size: 13px;
+}
+.fsize-14{
+    font-size: 14px;
+}
+.fsize-15{
+    font-size: 15px;
+}
+.fsize-16{
+    font-size: 16px;
+}
+
+/* Date range picker */
+.dp--preset-dates {
+    width: 180px !important; 
+}
+.dp--preset-range{
+    padding: 10px !important;
+    font-size: 14px !important;
+}
+.dp__action_select{
+    font-size: 15px !important;
+    padding: 15px 40px 15px 40px !important;
+    
+}
+.dp__action_cancel{
+    font-size: 15px !important;
+    padding: 15px !important;
+}
+
+.dp__theme_light {  
+    --dp-primary-color: var(--primary) !important;
+}
+.cashier-layout .table-seats-wrap{
+    padding-bottom: 20px;
+}
+
+.dp-custom-input{
+    background: white !important;
+    }
+  

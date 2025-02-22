@@ -1,0 +1,29 @@
+<template>
+  <div class="content">
+    <div class="row">
+      <div class="col-md-12">
+        <div>
+          <div class="row gx-3">
+            <div class="col-md-6 col-lg-4">
+              <div class="cs-setting-card">
+                <div class="icon">
+                  <div class="skl-w" style="height: 100%"></div>
+                </div>
+                <div class="txt">
+                  <h5><div class="skl-w" style="height: 16px"></div></h5>
+                  <div
+                    class="skl-w"
+                    style="height: 16px; width: 140px; margin-bottom: 6px"
+                  ></div>
+                  <div class="skl-w" style="height: 16px; width: 140px;margin-bottom: 6px"></div>
+                  <div class="skl-w" style="height: 16px; width: 140px"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- </div> -->
+      </div>
+    </div>
+  </div>
+</template>

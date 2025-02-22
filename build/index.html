@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wosul</title>
+    <link rel="icon" type="image/png" href="" id="favicon">
+    <script type="module" crossorigin src="/assets/index.sP6fhsqN.js"></script>
+    <link rel="stylesheet" crossorigin href="/assets/index.KTHCd6a8.css">
+  </head>
+  <body style="padding:0px;">
+    
+    <div id="app"></div>
+    
+    <script>
+      let lang = localStorage.getItem('language')?localStorage.getItem('language'):'en';
+      if(lang == 'en')
+        document.getElementsByTagName('html')[0].setAttribute('lang',lang);
+      else
+        document.getElementsByTagName('html')[0].removeAttribute('lang');
+      if(lang == 'ar')
+        document.getElementsByTagName('body')[0].setAttribute('dir','rtl');
+      else
+        document.getElementsByTagName('body')[0].removeAttribute('dir');
+
+      let favicon = localStorage.getItem('favicon');
+      document.getElementById('favicon').setAttribute('href',favicon);
+
+      let display_name = localStorage.getItem('display_name')!=''?localStorage.getItem('display_name'):'Wosul';
+      document.title = display_name;
+    </script>
+    
+    <script src="https://js.pusher.com/8.2.0/pusher.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+    <script>
+
+      // Pusher.logToConsole = false;
+      var pusher = new Pusher('87deb05e0ed270c4e832', {
+        cluster: 'ap2'
+      });
+      var channel = pusher.subscribe('my-channel');
+      channel.bind('my-event', function(data) {
+        console.log(data,'pusher data');
+      });
+      
+      // Vue application
+      const app = new Vue({
+        el: '#app',
+        data: {
+          messages: [],
+        },
+      });
+    </script>
+    
+  </body>
+</html>
