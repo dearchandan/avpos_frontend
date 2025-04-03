@@ -10,7 +10,7 @@
         <tbody>
             <tr v-for="transaction in recent_transactions">
                 <td :class="[ transaction.type == 'INCOME' ? 'text-success' : 'text-danger'  ]">
-                    {{ transaction.amount }} {{  transaction.currency.symbol  }}
+                    {{ transaction.amount }} {{  currency_symbol  }}
                 </td>
                 <td>{{ transaction.bill_type_text }}</td>
                 <td>{{ transaction.payment_method_name }}</td>

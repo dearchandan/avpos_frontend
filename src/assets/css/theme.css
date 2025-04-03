@@ -1,10 +1,15 @@
 :root{
-	--primary:#793693;
+    --primary:#10284B;
+	--secondary:#FEDB63;
+    --light2:#E8EAE1;
+    --light:#F6F6EB;
+    --text:rgba(16, 40, 75, 0.7);
+    --font1: "Plus Jakarta Sans", sans-serif;
+    --font2: "Readex Pro", sans-serif;
+	--white:#ffff;
+	--dark:#10284B;
     --light-primary:#FCF5FF;
-	--secondary:#545454;
-	--light:#f8f5f9;
 	--dark:#313131;
-    --light2:#fff;
     --white:#fff;
     --danger: #DC3545;
     --success: #19a263;

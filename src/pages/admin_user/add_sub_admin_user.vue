@@ -21,7 +21,10 @@
       </div>
     </template>
 
-    <div class="content" v-if="slack == '' || slack == undefined || (slack != '' && is_loaded)">
+    <div
+      class="content"
+      v-if="slack == '' || slack == undefined || (slack != '' && is_loaded)"
+    >
       <Form
         :validation-schema="schema"
         :initial-values="form"
@@ -113,6 +116,7 @@
                         required
                       />
                     </div>
+
                     <div class="col-md-3">
                       <VSelect
                         name="role"
@@ -122,6 +126,72 @@
                         :options="roles"
                         required
                       />
+                    </div>
+                    <div class="col-md-3 pt-2">
+                      <div class="form-field pt-2">
+                        <div class="form-check form-switch pt-4">
+                          <input
+                            class="form-check-input me-2"
+                            type="checkbox"
+                            role="switch"
+                            id="multi_session_login"
+                            checked
+                            v-model="form.multi_session_login"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="multi_session_login"
+                            >{{ $t("Multi-Device Login") }}</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3 pt-2">
+                      <div class="form-field pt-2">
+                        <div class="form-check form-switch pt-4">
+                          <input
+                            class="form-check-input me-2"
+                            type="checkbox"
+                            role="switch"
+                            id="allow_adding_merchants"
+                            checked
+                            v-model="form.allow_adding_merchants"
+                          />
+                          <label
+                            class="form-check-label"
+                            for="allow_adding_merchants"
+                            >{{ $t("Allow Adding Merchants") }}</label
+                          >
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-3">
+                      <div class="form-field">
+                        <div class="d-flex flex-column gap-2">
+                          <span class="fw-semibold">UTM Campaign Code</span>
+
+                          <div
+                            class="p-3 bg-light d-flex justify-content-between align-items-center"
+                          >
+                            <span class="text-dark">{{
+                              form.utm_campaign_code || "N/A"
+                            }}</span>
+
+                            <button
+                              class="border-0"
+                              @click.prevent="
+                                copyToClipboard(form.utm_campaign_code)
+                              "
+                              v-tippy="t('Copy')"
+                            >
+                              <Icon
+                                icon="fa6-regular:copy"
+                                class="text-primary fs-5"
+                              />
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -219,7 +289,6 @@
       </Form>
     </div>
     <EditFormSkeleton v-else />
-
   </DefaultLayout>
 </template>
 
@@ -236,6 +305,8 @@ import VSelect from "@/components/common/VSelect.vue";
 
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
+import { toast } from "vue3-toastify";
+import "vue3-toastify/dist/index.css"; // Ensure Vue3-Toastify is imported
 
 const { t } = useI18n();
 
@@ -247,6 +318,8 @@ const labels = ref({
   password: t("Password"),
   phone: t("Phone"),
   status: t("Status"),
+  multi_session_login: t("Multi-Device Login"),
+  allow_adding_merchants: t("Allow Adding Merchants"),
   select_status: t("Select Status"),
   date_of_birth: t("Date Of Birth"),
   date_of_anniversary: t("Date Of Anniversary"),
@@ -267,6 +340,8 @@ const initialState = {
   email: "",
   password: "",
   status: "",
+  multi_session_login: "",
+  allow_adding_merchants: "",
   login_code: "",
   phone: "",
   date_of_birth: "",
@@ -276,7 +351,7 @@ const initialState = {
   user_slack: "",
   password_dummy: "123456789",
   country: "",
-  role: ""
+  role: "",
 };
 
 const form = reactive({ ...initialState });
@@ -303,7 +378,7 @@ let schema = yup.object({
         number: 8,
       })
     ),
-    // phone: yup.string().nullable().matches(/^[0-9]{10}$/, t('Mobile number must be 10 digits')).typeError(t('must be a number',{ name: t('Mobile Number') })).nullable(true).min(10).max(10),
+  // phone: yup.string().nullable().matches(/^[0-9]{10}$/, t('Mobile number must be 10 digits')).typeError(t('must be a number',{ name: t('Mobile Number') })).nullable(true).min(10).max(10),
 });
 
 const roles = ref([]);
@@ -401,6 +476,8 @@ async function getUser() {
     form.email = response.data.data.email;
     form.role = response.data.data.role ? response.data.data.role.slack : "";
     form.status = response.data.data.status;
+    form.multi_session_login = response.data.data.multi_session_login;
+    form.allow_adding_merchants = response.data.data.allow_adding_merchants;
     form.login_code = response.data.data.login_code;
     form.date_of_anniversary = response.data.data.date_of_anniversary;
     form.date_of_birth = response.data.data.date_of_birth;
@@ -408,6 +485,7 @@ async function getUser() {
     form.joining_date = response.data.data.joining_date;
     form.password_dummy = "123456789";
     form.country = response.data.data.country_slack;
+    form.utm_campaign_code = response.data.data.utm_campaign_code;
   }
   is_loaded.value = true;
 }
@@ -442,6 +520,8 @@ async function saveUser() {
   form_data.append("country", form.country);
   form_data.append("role", form.role);
   form_data.append("status", form.status);
+  form_data.append("multi_session_login", form.multi_session_login);
+  form_data.append("allow_adding_merchants", form.allow_adding_merchants);
   form_data.append("login_code", form.login_code);
   form_data.append("phone", form.phone);
   form_data.append("date_of_birth", form.date_of_birth);
@@ -487,5 +567,21 @@ async function saveUser() {
 
 function resetData() {
   Object.assign(form, initialState);
+}
+
+function copyToClipboard(text) {
+  if (!text) {
+    toast.warn("No UTM Campaign Code to copy!", { autoClose: 2000 });
+    return;
+  }
+
+  navigator.clipboard
+    .writeText(text)
+    .then(() => {
+      toast.success("Copied to clipboard!", { autoClose: 2000 });
+    })
+    .catch(() => {
+      toast.error("Failed to copy!", { autoClose: 2000 });
+    });
 }
 </script>

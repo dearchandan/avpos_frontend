@@ -21,7 +21,7 @@ import { jsPDF } from "jspdf";
 const iframeRefs = ref(null);
 
 // const pdfPath = ref(
-//   "http://wosulpos-backend.test/storage/invoice/invoice-receipt-1721841303-6.pdf"
+//   "http://avpos-backend.test/storage/invoice/invoice-receipt-1721841303-6.pdf"
 // );
 
 onMounted(() => {
@@ -32,7 +32,7 @@ onMounted(() => {
     //     }, 500); // Adjust delay if needed
     // };
     // }
-    // iframeRefs.value.src = 'http://wosulpos-backend.test/storage/invoice/invoice-receipt-1721841303-6.pdf';
+    // iframeRefs.value.src = 'http://avpos-backend.test/storage/invoice/invoice-receipt-1721841303-6.pdf';
     // setTimeout(() => {
     //     iframeRefs.value.contentWindow.print();
     // }, 1000); // Adjust delay if needed

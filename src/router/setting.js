@@ -9,16 +9,16 @@ const settingRoutes = [
         component : () => import('@/pages/setting/app_setting.vue'),
         name : 'App Setting',
     },
-    {
-        path : '/currency_setting',
-        component : () => import('@/pages/setting/currency_setting.vue'),
-        name : 'Currencies',
-    },
-    {
-        path : '/merchant_setting',
-        component : () => import('@/pages/setting/merchant_setting.vue'),
-        name : 'Merchant Setting',
-    },
+    // {
+    //     path : '/currency_setting',
+    //     component : () => import('@/pages/setting/currency_setting.vue'),
+    //     name : 'Currencies',
+    // },
+    // {
+    //     path : '/merchant_setting',
+    //     component : () => import('@/pages/setting/merchant_setting.vue'),
+    //     name : 'Merchant Setting',
+    // },
     {
         path : '/mail_templates',
         component : () => import('@/pages/setting/mail_templates.vue'),
@@ -57,15 +57,15 @@ const settingRoutes = [
             authRequired : true,
         },
     },
-    {
-        path : '/cds_setting',
-        component : () => import('@/pages/setting/cds_setting.vue'),
-        name : 'CDS Setting',
-        meta : {
-            key : 'SM_CUSTOMER_DISPLAY_SETTING',
-            authRequired : true,
-        },
-    },
+    // {
+    //     path : '/cds_setting',
+    //     component : () => import('@/pages/setting/cds_setting.vue'),
+    //     name : 'CDS Setting',
+    //     meta : {
+    //         key : 'SM_CUSTOMER_DISPLAY_SETTING',
+    //         authRequired : true,
+    //     },
+    // },
     {
         path : '/activity_logs',
         component : () => import('@/pages/setting/activity_logs.vue'),

@@ -172,7 +172,7 @@ export default function useGlobal() {
     const subscription_fors = [
         {
         id : 1,
-        name : 'Wosul',
+        name : 'AvPOS',
         },
         {
         id : 2,

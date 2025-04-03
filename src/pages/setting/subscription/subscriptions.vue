@@ -120,7 +120,7 @@ async function subscribe(id,type=1) {
 
   /* Redirecting to subscription page */
   window.open(
-    'https://wosul.sa/en/plans',
+    'https://avinyadev.com.sa/en/plans',
     '_blank' // <- This is what makes it open in a new window.
   );
   // if(type==1){

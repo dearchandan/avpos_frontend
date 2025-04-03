@@ -218,7 +218,7 @@ const reporting_platforms = ref([
   },
   {
     id: 'WOSUL_EASY',
-    name: 'Wosul Easy',
+    name: 'AvPOS Easy',
   },
   {
     id : 'IPAD',

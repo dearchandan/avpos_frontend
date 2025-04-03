@@ -106,10 +106,6 @@
     const settingStore = useSettingStore();
     const authStore = useAuthStore();
     
-    const logo = computed(() => {
-      return settingStore.logo;
-    });
-
     const cashierStore = useCashierStore();
     const cashierStorePersist = useCashierStorePersist();
 

@@ -44,7 +44,15 @@ const merchantRoutes = [
             authRequired : true,
         },
     },
-    
+    {
+        path : '/merchant/:slack/user/add',
+        component : () => import('@/pages/merchant/add_merchant_user.vue'),
+        name : 'Add Merchant User',
+        meta : {
+            key : 'A_READ_MERCHANT',
+            authRequired : true,
+        },
+    },
 ];
 
 export default merchantRoutes;

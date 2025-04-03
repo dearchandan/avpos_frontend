@@ -124,6 +124,7 @@
         <ListingSkeleton />
       </div>
       <div v-else class="table-responsive">
+        <AsyncServerMessage v-if="server_messages.messages != ''" :server_messages="server_messages"  />
         <!--    Transfer To List    -->
         <table class="table table-list-data table-hover">
           <thead class="bg-light">
@@ -142,20 +143,20 @@
           </thead>
           <tbody>
 
-          <tr role="button" v-if="orders != ''" v-for="(order,order_index) in orders" :key="order_index" @click="handleRowClick($event,order.slack)">
+          <tr role="button" v-if="orders != ''" v-for="(order,order_index) in orders" :key="order_index" >
 
-              <td>{{ order.business_date_label }}</td>
+              <td @click="handleRowClick($event,order.slack)">{{ order.business_date_label }}</td>
 
-              <td>{{ order.terminal_name }}</td>
+              <td @click="handleRowClick($event,order.slack)">{{ order.terminal_name }}</td>
 
-              <td># {{ order.order_number }}</td>
+              <td @click="handleRowClick($event,order.slack)"># {{ order.order_number }}</td>
 
               <!-- <td>{{ order.reference_number }}</td> -->
               
               
-              <td>{{ order.payment_method_name }}</td>
+              <td @click="handleRowClick($event,order.slack)">{{ order.payment_method_name }}</td>
               
-              <td>
+              <td @click="handleRowClick($event,order.slack)">
                   <span v-if="order.order_type == 1">{{ $t('Take Away') }}</span>
                   <span v-if="order.order_type == 2">{{ $t('Dine In') }}</span>
               </td>
@@ -163,7 +164,7 @@
              
               
               <!-- <td> <span v-if="order.returned_status == 0">{{ order.returned_total }} {{  currency_symbol  }}</span>  <s class="text-muted" v-if="order.returned_total != order.total">{{ order.total }} {{  currency_symbol  }}</s> </td> -->
-              <td class="text-end">
+              <td class="text-end" @click="handleRowClick($event,order.slack)">
                   <span v-if="order.order_status==0" class="badge badge-primary">{{ $t('Open') }}</span>
                   <span v-if="order.order_status==1" class="badge badge-success">{{ $t('Closed') }}</span>
                   <span v-if="order.order_status==2" class="badge badge-warning">{{ $t('In Kitchen') }}</span>
@@ -173,10 +174,13 @@
                   <span v-if="order.order_status==6" class="badge badge-info">Partial Returned</span>
                   <span v-if="order.order_status==7" class="badge badge-danger"><s>Cancelled</s></span>
               </td>
-              <td class="fw-bold text-end text-primary">{{ getRoundedValue(order.total) }} {{  currency_symbol  }}</td>
+              <td class="fw-bold text-end text-primary" @click="handleRowClick($event,order.slack)">{{ getRoundedValue(order.total) }} {{  currency_symbol  }}</td>
           
               <!-- <td>{{ order.created_at_label }}</td> -->
               <td class="text-end"> 
+                <button v-if="zatca && !order.zatcaResponse" @click="signSimplifiedInvoice(order.slack)" :disabled="is_signing" target="_blank" type="button" class="btn btn-xs btn-warning ms-2">
+                  E-Sign
+                </button> 
                 <a :href="order.receipt_link" target="_blank" type="button" class="btn btn-sm btn-primary ms-2">
                   Print <Icon icon="ph:printer-light" class="fs-3" />
                 </a> 
@@ -218,6 +222,7 @@ import { endOfMonth,  startOfMonth, subMonths , startOfWeek, endOfWeek } from 'd
 import useGlobalFunctions from '@/composables/global_functions.js';
 import { useI18n } from 'vue-i18n'
 import useGlobal from '@/composables/global.js';
+const AsyncServerMessage = defineAsyncComponent( () => import('@/components/common/ServerMessage.vue') );
 
 const { t } = useI18n(); 
 const { isAuthorized, getRoundedValue } = useGlobalFunctions();
@@ -233,11 +238,16 @@ const user_branch_id = computed(() => {
   return authStore.user.branch_id;
 })
 
+const server_messages = reactive({
+        type : "",
+        messages : "",
+});
+
 const initialState = {
-  server_messages: {
-    type: "",
-    messages: "",
-  },
+  // server_messages: {
+  //   type: "",
+  //   messages: "",
+  // },
   is_listing: false,
   // form data
   search_query: ref(""),
@@ -254,8 +264,9 @@ onMounted(() => {
   }else{
     getOrders();
   }
-  
+  getZatca();
 });
+
 
 watch(() =>
         form.search_query, _.debounce(() => {
@@ -281,17 +292,17 @@ async function getTerminals(){
         terminals.value = response.data.data;
       }else{
         try{
-          form.server_messages.type = "error";
-          form.server_messages.messages = JSON.parse(response.data.msg);
+          server_messages.type = "error";
+          server_messages.messages = JSON.parse(response.data.msg);
         }catch(err){
-          form.server_messages.type = "error";
-          form.server_messages.messages = response.data.msg;
+          server_messages.type = "error";
+          server_messages.messages = response.data.msg;
         }
       }
 
     }).catch((error) => {
-      form.server_messages.type = "error";
-      form.server_messages.messages = error;
+      server_messages.type = "error";
+      server_messages.messages = error;
       console.log(error);
     });
 
@@ -341,8 +352,8 @@ async function getOrders(page = 1) {
     form.is_listing = false;
 
   }).catch((error) => {
-    form.server_messages.type = "error";
-    form.server_messages.messages = error;
+    server_messages.type = "error";
+    server_messages.messages = error;
     form.is_listing = false;
     console.log(error);
   });
@@ -403,17 +414,17 @@ async function deleteOrder(slack) {
 
       } else {
         try {
-          form.server_messages.type = "error";
-          form.server_messages.messages = JSON.parse(response.data.msg);
+          server_messages.type = "error";
+          server_messages.messages = JSON.parse(response.data.msg);
         } catch (err) {
-          form.server_messages.type = "error";
-          form.server_messages.messages = response.data.msg;
+          server_messages.type = "error";
+          server_messages.messages = response.data.msg;
         }
       }
 
     }).catch((error) => {
-      form.server_messages.type = "error";
-      form.server_messages.messages = error;
+      server_messages.type = "error";
+      server_messages.messages = error;
       console.log(error);
     });
   }
@@ -440,6 +451,52 @@ function handleRowClick(event,slack){
   }
 }
 
+/* Zatca Phase 2 */
+const zatca = ref("");
+async function getZatca(){
+      const response = await axios.get('/api/v2/zatca/merchant');
+      if (response.data.status_code == 200 || response.data.status_code == 201 ) {
+          zatca.value = response.data.data;
+      }
+}
+
+const is_signing = ref(false);
+
+async function signSimplifiedInvoice(slack) {
+  is_signing.value = true;
+  
+  try {
+    const response = await axios.post('/api/v2/zatca/signSimpliedInvoice', { slack });
+
+    is_signing.value = false;
+    
+    const responseData = response.data;
+    
+    if (responseData.status_code === 200 && responseData.data?.res) {
+      // Successful Response
+      toast.success("Invoice signed successfully!");
+      getOrders();
+      
+    } else {
+      // Validation Error or Failed Response
+      server_messages.type = "error";
+
+      if (responseData.data?.errors) {
+        // Extract validation errors
+        server_messages.messages = Object.values(responseData.data.errors).flat().join(', ');
+      } else {
+        server_messages.messages = responseData.data?.message || "An unknown error occurred.";
+      }
+    }
+    
+  } catch (error) {
+    // Handle Network or Server Errors
+    is_signing.value = false;
+    server_messages.type = "error";
+    server_messages.messages = error.response?.data?.message || "Something went wrong.";
+    console.error(error);
+  }
+}
 
 
 </script>

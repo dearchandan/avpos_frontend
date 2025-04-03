@@ -8,7 +8,7 @@
             <img :src="loginshape2" alt=""/>
         </div>
         <div class="row g-0">
-            <div class="col-lg-5">
+            <div class="col-lg-4 offset-4">
                 <div class="login-page-wrap">
                 
                     <div class="card login-card">
@@ -18,7 +18,7 @@
                                     <a href="#"><img :src="logo" alt=""/></a>
                                 </div>
                             </div>
-                            <div class="col-auto">
+                            <!-- <div class="col-auto">
                                 <div class="login-lang-switcher">
                                     <a href="#" class="dropdown dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="true" data-bs-auto-close="outside">
                                     <svg width="26" height="26" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -31,7 +31,7 @@
                                         <div class="dropdown-item" role="button" @click="switchLanguage('ar')">عربي</div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
 
                         <h3 class="text-primary">{{ $t("Sign In to your account") }}</h3>
@@ -89,94 +89,9 @@
 
                 </div>
             </div>
-
-           <div class="col-lg-7">
-                <div class="login-leftbar">
-                    <div class="inner">
-                        <!-- <h3>{{ $t("Lorem ipsum is a placeholder text") }}</h3> -->
-                        <h2>{{ $t("Automate your sales with our advanced POS system👍") }}</h2>
-                        <!--<div class="inner-box">
-                            <h4>Our Customer Experience</h4>
-                            <div class="login-experience-tex">
-                                <p>Lorem ipsum is a placeholder text commonly used to demonstrate the visual form of a document or a typeface without relying on meaningful content.</p>
-                                <h6>- Lorem ipsum</h6>
-                            </div>
-                        </div>-->
-                        <h5>{{  $t('More than +8,000 businesses manage their operations effectively and makes it easy for you to track all aspects of your business.')  }}</h5>
-                        <div class="login-logo-carousel row g-3 justify-content-center">
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo1" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo2" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo3" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo4" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo5" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo6" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo7" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo8" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo9" class="d-block"/>
-                                </div>
-                            </div>
-                            <div class="col">
-                                <div class="item">
-                                    <img :src="logo10" class="d-block"/>
-                                </div>
-                            </div>
-                        </div>
-                        <!--<div class="leftbar-point">
-                            <h4>1500+</h4>
-                            <h6>{{ $t("Happy Merchants") }}</h6>
-                        </div>
-                        <div class="leftbar-point">
-                            <h4>430K+</h4>
-                            <h6>{{ $t("Invoices Per Day") }}</h6>
-                        </div>
-                        <div class="leftbar-point">
-                            <h4>10+</h4>
-                            <h6>{{ $t("Years of Experience") }}</h6>
-                        </div>
-                        <div class="leftbarimg">
-                            <img :src="women_img" class="d-block"/>
-                        </div>-->
-                    </div>
-                </div>
-            </div>
-
         </div>
         <div class="copyright-text text-center">
-            <p>© {{ $t("Copyright") }} 2023. {{ app_name }} {{ $t("All Rights Reserved.") }}</p>
+            <p>© {{ $t("Copyright") }} 2025. {{ app_name }} {{ $t("All Rights Reserved.") }}</p>
         </div>
     </div>
 

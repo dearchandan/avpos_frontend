@@ -4,7 +4,7 @@
       <div class="row">
         <div class="col-md-6 col-lg-5">
           <div class="row">
-            <div class="col-6 col-md-6 col-lg-6">
+            <div class="col-6 col-md-6 col-lg-6" v-if="!isThirdParty">
               <div class="darshboard-counter card">
                 <h6>{{ $t("Total Revenue") }}</h6>
                 <h3 class="text-primary">
@@ -13,7 +13,7 @@
               </div>
             </div>
 
-            <div class="col-6 col-md-6 col-lg-6">
+            <div class="col-6 col-md-6 col-lg-6" v-if="!isThirdParty">
               <div class="darshboard-counter card">
                 <h6>{{ $t("Orders") }}</h6>
                 <h3 class="text-primary">{{ stats.total_orders }}</h3>
@@ -52,14 +52,14 @@
               </div>
             </div>
 
-            <div class="col-6 col-md-6 col-lg-6">
+            <div class="col-6 col-md-6 col-lg-6" v-if="!isThirdParty">
               <div class="darshboard-counter card">
                 <h6>{{ $t("Total Subscriptions") }}</h6>
                 <h3 class="text-primary">{{ stats.total_subscriptions }}</h3>
               </div>
             </div>
 
-            <div class="col-6 col-md-6 col-lg-6">
+            <div class="col-6 col-md-6 col-lg-6" v-if="!isThirdParty">
               <div class="darshboard-counter card">
                 <h6>{{ $t("Total Devices") }}</h6>
                 <h3 class="text-primary">{{ stats.total_devices }}</h3>
@@ -125,6 +125,10 @@ const currency_symbol = computed(() => {
 
 const branches = computed(() => {
   return authStore.user.branches;
+});
+
+const isThirdParty = computed(() => {
+  return authStore.user.is_third_party;
 });
 
 const initial_filter = reactive({

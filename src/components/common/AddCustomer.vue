@@ -114,7 +114,14 @@
                     :label="labels.tax_registration_number"
                   />
                 </div>
-
+                <div class="col-6 col-md-4 col-lg-3">
+                  <VTextInput
+                    type="text"
+                    name="commercial_registration_number"
+                    v-model="form.commercial_registration_number"
+                    :label="labels.commercial_registration_number"
+                  />
+                </div>
                 <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
                     type="text"
@@ -169,7 +176,7 @@
           </div>
           <div class="col-md-12 mb-4">
             <div class="card">
-              <h5 class="pb-3">{{ $t("Address") }}</h5>
+              <h5 class="pb-3">{{ $t("Address") }} <small class="text-muted">{{ $t("(Required for Zatca Invoicing)") }}</small>  </h5>
               <div class="row">
                 <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
@@ -190,6 +197,15 @@
                 <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
                     type="text"
+                    name="building_number"
+                    v-model="form.building_number"
+                    :label="labels.building_number"
+                  />
+                </div>
+               
+                <div class="col-6 col-md-4 col-lg-3">
+                  <VTextInput
+                    type="text"
                     name="city"
                     v-model="form.city"
                     :label="labels.city"
@@ -201,6 +217,22 @@
                     name="pincode"
                     v-model="form.pincode"
                     :label="labels.pincode"
+                  />
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                  <VTextInput
+                    type="text"
+                    name="city_subdivision_name"
+                    v-model="form.city_subdivision_name"
+                    :label="labels.city_subdivision_name"
+                  />
+                </div>
+                <div class="col-6 col-md-4 col-lg-3">
+                  <VTextInput
+                    type="text"
+                    name="identification_code"
+                    v-model="form.identification_code"
+                    :label="labels.identification_code"
                   />
                 </div>
                 <div class="col-6 col-md-4 col-lg-3">
@@ -257,14 +289,18 @@ const labels = ref({
   phone: t("Customer Phone"),
   tax_registration_number: t("Tax Registration Number"),
   tax_registration_name: t("Tax Registration Name"),
+  commercial_registration_number: t("Commercial Registration Number"),
   gst_number: t("GST Number"),
   date_of_birth: t("Date Of Birth"),
   date_of_anniversary: t("Date Of Anniversary"),
   joining_date: t("Date Of Joining"),
-  first_address_line: t("Address Line 1"),
-  second_address_line: t("Address Line 2"),
-  city: t("City"),
-  pincode: t("Pincode/Zipcode"),
+  first_address_line: t("Street Name"),
+  second_address_line: t("Additional Street Name"),
+  city: t("City Name"),
+  pincode: t("Postal Zone"),
+  building_number: t("Building Number"),
+  city_subdivision_name: t("City Subdivision Name"),
+  identification_code: t("Identification Code"),
   state: t("State"),
 });
 const initialState = {
@@ -281,6 +317,7 @@ const initialState = {
   customer_type: "",
   tax_registration_number: "",
   tax_registration_name: "",
+  commercial_registration_number: "",
   gst_number: "",
   date_of_birth: "",
   date_of_anniversary: "",
@@ -290,6 +327,9 @@ const initialState = {
   second_address_line: "",
   city: "",
   pincode: "",
+  building_number: "",
+  city_subdivision_name: "",
+  identification_code: "",
   state: "",
   country: "",
   customer_slack: "",
@@ -312,6 +352,30 @@ form.redirection = props.redirection;
 const schema = yup.object({
   name: yup.string().required(t("name is required", { name: t("Customer Name") })).min(3, t("name must be at least n characters", {name: t("Customer Name"), number: 3,})).matches(/^[a-zA-Z\u0600-\u06FF\s]+$/,t('Name must be in alphabets')),
   phone: yup.string().matches(/^[0-9]{9,10}$/, t('Mobile number must be 9 or 10 digits')).typeError(t('must be a number',{ name: t('Mobile Number') })).required(t('name is required', { name: t('Mobile Number') })),
+  tax_registration_number: yup
+    .string()
+    .nullable() // Allows null values
+    .test(
+      "is-valid-tax-number",
+      t("Tax Registration Number must be a 15-digit number starting with 3 and ending with 3"),
+      (value) => !value || /^[3]\d{13}[3]$/.test(value) // Validate only if it's not null
+    ),
+  building_number: yup
+    .string()
+    .nullable() // Allows null values
+    .test(
+      "is-valid-tax-number",
+      t("Building Number must be a 4-digit number"),
+      (value) => !value || /^\d{4}$/.test(value) // Validate only if it's not null
+    ),
+  pincode: yup
+    .string()
+    .nullable() // Allows null values
+    .test(
+      "is-valid-tax-number",
+      t("Postal Zone must be a 5-digit number"),
+      (value) => !value || /^\d{5}$/.test(value) // Validate only if it's not null
+    ),
 });
 
 const countries = ref([]);
@@ -370,10 +434,14 @@ async function getCustomer() {
         form.gst_number = response.data.data.gst_number;
         form.tax_registration_number = response.data.data.tax_registration_number;
         form.tax_registration_name = response.data.data.tax_registration_name;
+        form.commercial_registration_number = response.data.data.commercial_registration_number;
         form.phone = response.data.data.phone;
         form.first_address_line = response.data.data.first_address_line;
         form.second_address_line = response.data.data.second_address_line;
         form.pincode = response.data.data.postal_code;
+        form.building_number = response.data.data.building_number;
+        form.city_subdivision_name = response.data.data.city_subdivision_name;
+        form.identification_code = response.data.data.identification_code;
         form.country = response.data.data.country
           ? response.data.data.country.slack
           : "";
@@ -401,6 +469,7 @@ async function saveCustomer() {
   form_data.append("customer_type", (form.invoice_path == true || form.quotation_path == true) ? 1 : form.customer_type);
   form_data.append("tax_registration_number", form.tax_registration_number);
   form_data.append("tax_registration_name", form.tax_registration_name);
+  form_data.append("commercial_registration_number", form.commercial_registration_number);
   form_data.append("gst_number", form.gst_number);
   form_data.append("date_of_birth", form.date_of_birth);
   form_data.append("date_of_anniversary", form.date_of_anniversary);
@@ -410,6 +479,9 @@ async function saveCustomer() {
   form_data.append("second_address_line", form.second_address_line);
   form_data.append("city", form.city);
   form_data.append("pincode", form.pincode);
+  form_data.append("building_number", form.building_number);
+  form_data.append("city_subdivision_name", form.city_subdivision_name);
+  form_data.append("identification_code", form.identification_code);
   form_data.append("state", form.state);
   form_data.append("country", form.country);
   form_data.append("customer_slack", form.customer_slack);
@@ -417,7 +489,6 @@ async function saveCustomer() {
     form.customer_slack != "" && form.customer_slack != undefined
       ? "/api/customer/update"
       : "/api/customer/save";
-
   await axios
     .post(submit_url, form_data)
     .then((response) => {

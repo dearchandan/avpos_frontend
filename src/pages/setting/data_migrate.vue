@@ -40,7 +40,7 @@
 
               <div class="pb-4 ">
                 <h4 class="text-primary">1. {{  $t('Connect') }}</h4>
-                <p class="text-muted fw-bold">{{ $t("You can enter your registered email and password with wosul here and start restoring the data")  }} </p>
+                <p class="text-muted fw-bold">{{ $t("You can enter your registered email and password with avinyadev.com here and start restoring the data")  }} </p>
               </div>
               
               <Form enctype="multipart/form-data" :initial-values="form" @submit="connect">

@@ -24,7 +24,9 @@
                             <li v-if="isAuthorized('SM_DISCOUNT')" :class=" path == '/discounts' ? 'active' : ''"><router-link to="/discounts">{{ $t("Discounts") }}</router-link></li>
                             <li v-if="isAuthorized('SM_STOCK_TRANSFER') && branch_count > 1" :class=" path == '/stock_transfers' ? 'active' : ''"><router-link to="/stock_transfers">{{ $t("Stock Transfer") }}</router-link></li>
                             <li v-if="isAuthorized('SM_STOCK_ADJUSTMENT')" :class=" path == '/stock_adjustments' ? 'active' : ''"><router-link to="/stock_adjustments">{{ $t("Stock Adjustment") }}</router-link></li>
-                          <li :class=" path == '/multiple_prices' ? 'active' : ''"><router-link to="/multiple_prices">{{ $t("Multiple Prices") }}</router-link></li>
+                            <li :class=" path == '/multiple_prices' ? 'active' : ''"><router-link to="/multiple_prices">{{ $t("Multiple Prices") }}</router-link></li>
+                            <li :class=" path == '/inventory_counts' ? 'active' : ''"><router-link to="/inventory_counts">{{ $t("Inventory Counts") }}</router-link></li>
+                            <li :class=" path == '/generate_barcode' ? 'active' : ''"><router-link to="/generate_barcode">{{ $t("Barcode Generate") }}</router-link></li>
                         </ul>
                     </nav>
                 </div>

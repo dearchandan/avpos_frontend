@@ -83,7 +83,7 @@
                               <label class="form-label">{{ $t('Subscription For') }}</label>
                               <select class="form-control form-control-sm form-control-solid" v-model="filter.subscription_for">
                                 <option value="">{{ $t('All') }}</option>
-                                <option value="1">{{ $t('Wosul') }}</option>
+                                <option value="1">{{ $t('AvPOS') }}</option>
                                 <option value="2">{{ $t('Alhamrani') }}</option>
                               </select>
                             </div>
@@ -151,7 +151,7 @@
                 <span v-else>{{ $t('Mobile Devices') }}</span>
               </td>
               <td>
-                <span v-if="subscription.subscription_for==1">{{ $t('Wosul') }}</span>
+                <span v-if="subscription.subscription_for==1">{{ $t('AvPOS') }}</span>
                 <span v-else>{{ $t('Alhamrani') }}</span>
               </td>
               <td>{{ subscription.country.name }}</td>

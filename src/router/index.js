@@ -59,11 +59,12 @@ import voucherUserRoutes from './voucher_user';
 import rentReceiptSettingRoutes from './rent_receipt_setting';
 import rentReceiptRoutes from './rent_receipt';
 import rentReceiptUserRoutes from './rent_receipt_user';
+import inventoryCountRoutes from './inventory_count';
+import barcodeRoutes from './barcode';
+import zatcaRoutes from './zatca';
 
-const { isAuthorized, checkSubscriptionRedirection } = useGlobalFunctions();
+const { isAuthorized } = useGlobalFunctions();
 import { useAuthStore } from '@/stores/auth';
-import { template } from 'lodash';
-
     
 const routes = [
     ...authRoutes,
@@ -123,6 +124,9 @@ const routes = [
     ...rentReceiptRoutes,
     ...rentReceiptSettingRoutes,
     ...rentReceiptUserRoutes,
+    ...inventoryCountRoutes,
+    ...barcodeRoutes,
+    ...zatcaRoutes,
 ];
 
 const router = createRouter({

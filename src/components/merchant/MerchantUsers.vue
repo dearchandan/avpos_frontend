@@ -5,6 +5,9 @@
           <div class="col-auto">
             <h2 class="mb-0">{{ $t("Users") }}</h2>
           </div>
+          <div class="col-auto">
+            <a :href="merchant.slack+'/user/add'" class="btn btn-sm btn-light-primary2">+ New User</a>
+          </div>
         </div>
         <div class="row align-items-end justify-content-between mb-3">
           <div class="col-md-auto">
@@ -119,10 +122,10 @@
               <td>{{ user.joining_date }}</td>
               <td>{{ user.created_at_label }}</td>
               <td class="text-center">
-                <span v-if="user.status == 0" class="text-danger">{{ user.status_text }}</span>
-                <span v-if="user.status == 1" class="text-success">{{ user.status_text }}</span>
-                <span v-if="user.status == 2" class="text-warning">{{ user.status_text }}</span>
-                <span v-if="user.status == 3" class="text-danger">{{ user.status_text }}</span>
+                <span v-if="user.status == 0" class="text-danger">{{ $t("Inactive") }}</span>
+                <span v-if="user.status == 1" class="text-success">{{ $t("Active") }}</span>
+                <span v-if="user.status == 2" class="text-warning">{{ $t("Hold") }}</span>
+                <span v-if="user.status == 3" class="text-danger">{{ $t("Left") }}</span>
               </td>
             </tr>
             <tr v-else>

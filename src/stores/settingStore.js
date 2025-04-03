@@ -26,7 +26,7 @@ export const useSettingStore = defineStore('settingStore', {
             this.favicon = this.extractKeyValue(response.data,'FAVICON_ICN');
             localStorage.setItem('favicon',this.favicon);
             localStorage.setItem('display_name',this.display_name);
-            document.title = this.display_name!=''?this.display_name:'Wosul';
+            document.title = this.display_name!=''?this.display_name:'AvPOS';
 
         } catch (error) {
             this.error = error;

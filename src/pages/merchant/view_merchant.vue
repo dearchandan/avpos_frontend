@@ -14,7 +14,7 @@
           <div class="col-auto">
             <h5 class="fw-bold">{{ merchant.name }}</h5>
           </div>
-          <div class="col-auto ms-auto me-0"><a href="#" class="btn btn-danger btn-sm" @click="deleteAccount()">{{ $t("Delete Merchant") }}</a></div>
+<!--          <div class="col-auto ms-auto me-0"><a href="#" class="btn btn-danger btn-sm" @click="deleteAccount()">{{ $t("Delete Merchant") }}</a></div>-->
         </div>
       </div>
     </template>

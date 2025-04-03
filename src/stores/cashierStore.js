@@ -452,6 +452,8 @@ export const useCashierStore = defineStore("cashierStore", {
       this.gift_code = "";
       this.edit_mode = false;
       this.order_note = "";
+      this.order_type = 1;
+      this.table = "";
       this.clearCustomer();
     },
     newOrder() {

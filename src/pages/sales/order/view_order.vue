@@ -53,7 +53,7 @@
           >
         </div>
         <div class="col-4 text-end">
-          <a :href="order.receipt_link" download class="btn btn-primary btn-sm">
+          <a :href="order.receipt_link" target="_BLANK" download class="btn btn-primary btn-sm">
             <Icon icon="material-symbols:download" class="fs-4"></Icon>
             {{ $t("Download Order Receipt") }}
           </a>

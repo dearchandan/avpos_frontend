@@ -1,1 +1,0 @@
-import{f as t,J as c,K as n,g as i,p as r}from"./index.li3fCRRM.js";const l={__name:"VTooltip",props:{message:{type:String}},setup(e){return(p,a)=>{const o=t("Icon"),s=c("tippy");return n((i(),r(o,{icon:"fa6-solid:circle-info",class:"ps-2 text-secondary"},null,512)),[[s,e.message]])}}};export{l as _};

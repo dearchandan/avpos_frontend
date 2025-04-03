@@ -1,5 +1,5 @@
 {
-  "name": "wosulpos-vue",
+  "name": "avpos-vue",
   "version": "0.0.0",
   "private": true,
   "scripts": {
@@ -20,6 +20,7 @@
     "glob": "^11.0.0",
     "jenesius-vue-modal": "^1.8.2",
     "jquery": "^3.6.3",
+    "jsbarcode": "^3.11.6",
     "laravel-echo": "^1.16.1",
     "laravel-vue-pagination": "^4.0.0",
     "lodash": "^4.17.21",

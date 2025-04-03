@@ -81,8 +81,8 @@
                     :addModalShow="true"
                     :addModalId="'#addCategoryModal'"
                     mode="single"
-                    @change="checkCategory"
-                  />
+                    />
+                    <!-- @change="checkCategory" -->
                   <VSelectInput v-else
                     name="categories"
                     :label="labels.select_categories"
@@ -93,8 +93,8 @@
                     :selected="form.categories"
                     v-model="form.categories"
                     mode="single"
-                   @change="checkCategory"
-                  />
+                    />
+                    <!-- @change="checkCategory" -->
                 </div>
 
                 <div class="col-auto col-md-2 col-lg-3 pt-4">
@@ -250,7 +250,7 @@
                   {{ $t("Optional Details") }}:
                 </h5>
 
-                <div class="col-6 col-md-4 col-lg-3">
+                <!-- <div class="col-6 col-md-4 col-lg-3">
                   <VSelectInput
                       name="other_tax_type"
                       :label="labels.other_tax_type"
@@ -259,7 +259,7 @@
                       :selected="form.other_tax_type"
                       size="normal"
                   />
-                </div>
+                </div> -->
 
                 <div class="col-6 col-md-4 col-lg-3" v-if="form.other_tax_type==2">
                   <VMultiSelect
@@ -274,7 +274,7 @@
                   />
                 </div>
 
-                <div class="col-6 col-md-4 col-lg-3">
+                <!-- <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
                       type="number"
                       name="sale_price"
@@ -292,16 +292,16 @@
                     "
                       v-model="form.sale_price"
                   />
-                </div>
+                </div> -->
 
-                <div class="col-6 col-md-4 col-lg-3">
+                <!-- <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
                       type="text"
                       name="name_ar"
                       :label="labels.name_ar"
                       v-model="form.name_ar"
                   />
-                </div>
+                </div> -->
 
                 <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
@@ -312,16 +312,16 @@
                   />
                 </div>
 
-                <div class="col-6 col-md-4 col-lg-3">
+                <!-- <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
                       type="text"
                       name="short_description_ar"
                       :label="labels.short_description_ar"
                       v-model="form.short_description_ar"
                   />
-                </div>
+                </div> -->
 
-                <div class="col-12 col-md-4 col-lg-3">
+                <!-- <div class="col-12 col-md-4 col-lg-3">
                   <div class="form-field">
                     <label>{{ $t("Description") }}</label>
                     <Field
@@ -333,9 +333,9 @@
                         v-model="form.description"
                     ></Field>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="col-12 col-md-4 col-lg-3">
+                <!-- <div class="col-12 col-md-4 col-lg-3">
                   <div class="form-field">
                     <label>{{ $t("Description (Arabic)") }}</label>
                     <Field
@@ -347,7 +347,7 @@
                         v-model="form.description_ar"
                     ></Field>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-6 col-md-4 col-lg-3"
                     v-show="values.type == 1 || values.type == 2"
@@ -393,7 +393,7 @@
                   />
                 </div>
 
-                <div class="col-6 col-md-4 col-lg-3"
+                <!-- <div class="col-6 col-md-4 col-lg-3"
                     v-show="values.type == 1 || values.type == 2"
                 >
                   <VTextInput
@@ -403,7 +403,7 @@
                       v-model="form.alert_quantity"
                       :min="0"
                   />
-                </div>
+                </div> -->
 
                 <div class="col-6 col-md-4 col-lg-3"
                     v-show="values.type == 1 || values.type == 2"
@@ -418,32 +418,7 @@
                   />
                 </div>
 
-                <div class="col-6 col-md-4 col-lg-3 pt-md-3"
-                    v-show="values.type == 1 || values.type == 2"
-                >
-                  <div class="form-field">
-                    <div class="form-check form-switch">
-                      <Field
-                          class="form-check-input me-2"
-                          role="switch"
-                          name="is_refundable"
-                          id="is_refundable"
-                          label="Refundable"
-                          type="checkbox"
-                          :unchecked-value="false"
-                          :value="true"
-                          v-model="form.is_refundable"
-                          @change="
-                          (event) =>
-                            setFieldValue('is_refundable', event.target.checked)
-                        "
-                      />
-                      <label class="form-check-label" for="is_refundable">{{
-                          $t("Refundable")
-                        }}</label>
-                    </div>
-                  </div>
-                </div>
+              
 
                 <div class="col-6 col-md-4 col-lg-3"
                     v-show="values.type == 1 || values.type == 2"
@@ -466,6 +441,33 @@
                       :min="0"
                   />
                 </div>
+
+                <div class="col-6 col-md-4 col-lg-3 pt-md-3"
+                v-show="values.type == 1 || values.type == 2"
+            >
+              <div class="form-field">
+                <div class="form-check form-switch">
+                  <Field
+                      class="form-check-input me-2"
+                      role="switch"
+                      name="is_refundable"
+                      id="is_refundable"
+                      label="Refundable"
+                      type="checkbox"
+                      :unchecked-value="false"
+                      :value="true"
+                      v-model="form.is_refundable"
+                      @change="
+                      (event) =>
+                        setFieldValue('is_refundable', event.target.checked)
+                    "
+                  />
+                  <label class="form-check-label" for="is_refundable">{{
+                      $t("Refundable (Can be returned)")
+                    }}</label>
+                </div>
+              </div>
+            </div>
 
                 <input type="hidden" name="slack" />
 
@@ -551,7 +553,7 @@
                   />
                 </div>
 
-                <div class="col-3">
+                <!-- <div class="col-3">
                   <div class="form-field" type="radio">
                     <label class="label"> {{ $t('Only for this Branch?') }}</label>
                     <div class="form-check mt-md-3">
@@ -561,9 +563,9 @@
                         ">Yes
                     </div>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="col-3">
+                <!-- <div class="col-3">
                   <div class="form-field" type="radio">
                     <label class="label"> {{ $t('Is Favorite') }}</label>
                     <div class="form-check form-switch mt-md-3">
@@ -573,7 +575,7 @@
                         ">
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-auto mt-4" >
                   <div class="form-field" type="radio">
@@ -591,7 +593,7 @@
             </div>
           </div>
 
-          <div class="col-md-12">
+          <!-- <div class="col-md-12">
             <div class="card">
               <div class="row">
                 <h5 class="section-title pb-2 text-muted">{{ $t("Add Multiple Pricing") }}</h5>
@@ -653,7 +655,7 @@
                   </div>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
@@ -705,16 +707,16 @@ const language = localStorage.getItem('language');
 const labels = ref({
   type: t("Product Type"),
   name: t("Product Name"),
-  name_ar: t("Product Name (Arabic)"),
+  // name_ar: t("Product Name (Arabic)"),
   select_categories: t("Select Categories"),
   price_type: t("Price Type"),
   select_tax: t("Select Tax"),
-  default_sales_price_inc_tax: t("Default Sale Price (Inclusive Tax)"),
-  default_sales_price_exc_tax: t("Default Sale Price (Exclusive Tax)"),
+  // default_sales_price_inc_tax: t("Default Sale Price (Inclusive Tax)"),
+  // default_sales_price_exc_tax: t("Default Sale Price (Exclusive Tax)"),
   short_description: t("Short Description"),
-  short_description_ar: t("Short Description (Arabic)"),
-  description: t("Description"),
-  description_ar: t("Description (Arabic)"),
+  // short_description_ar: t("Short Description (Arabic)"),
+  // description: t("Description"),
+  // description_ar: t("Description (Arabic)"),
   upc: t("UPC (Barcode)"),
   mpn: t("MPN (Manufacturing Part Number)"),
   ean: t("EAN (13 Digit International Article Number)"),
@@ -734,12 +736,12 @@ const labels = ref({
   branch_product_tooltip: t('Stock only for this branch.'),
   sales_price_inc_tax: t('Sale Price (Incl. Tax)'),
   sales_price_exc_tax: t('Sale Price (Excl. Tax)'),
-  quantity: t('Quantity'),
+  quantity: t('Quantity In Hand'),
   sku: t('SKU'),
   show_in: t('Show In'),
   unit: t('Unit'),
-  other_tax_type: t('Other Tax Type'),
-  additional_fee: t('Additional Fee'),
+  // other_tax_type: t('Other Tax Type'),
+  // additional_fee: t('Additional Fee'),
 });
 const select_multiple_price = ref("");
 const AsyncServerMessage = defineAsyncComponent(() =>
@@ -782,9 +784,9 @@ const form = ref({
   image: "",
   name_ar: "",
   short_description: "",
-  short_description_ar: "",
-  description: "",
-  description_ar: "",
+  // short_description_ar: "",
+  // description: "",
+  // description_ar: "",
   upc: "",
   mpn: "",
   ean: "",
@@ -922,12 +924,12 @@ const schema = yup.object({
   // purchase_price: yup.string().matches(/^([.0-9]{0,9999999999999})$/, t('Purchase Price must be a positive number or 0')),
   // alert_quantity: yup.string().matches(/^([.0-9]{0,9999999999999})$/, t('Alert Quantity must be a positive number or 0')),
   inventory_alert_quantity: yup.string().matches(/^([.0-9]{0,9999999999999})$/, t('Alert Quantity must be a positive number or 0')),
-  additional_fee_id:yup.string()
-      .when({
-        is: () => form.value.other_tax_type==2,
-        then: (schema) => schema.required(t('name is required', { name: t('Additional Fee') })),
-        otherwise:(schema) => schema.nullable()
-      }),
+  // additional_fee_id:yup.string()
+  //     .when({
+  //       is: () => form.value.other_tax_type==2,
+  //       then: (schema) => schema.required(t('name is required', { name: t('Additional Fee') })),
+  //       otherwise:(schema) => schema.nullable()
+  //     }),
 });
 
 async function selectFile(e) {
@@ -958,6 +960,7 @@ const multiple_prices = ref([]);
 const selected_multiple_prices = ref([]);
 const is_loaded = ref(false);
 async function getProduct() {
+  
   let response = await axios.get("/api/v2/product/edit/" + slack);
   form.value = response.data.data.product;
   form.value.image = "";
@@ -980,13 +983,13 @@ async function getProduct() {
       response.data.data.product.stock_measurement_unit.abbreviation;
   }
 
-  if(response.data.data.product.tobacco_tax == 1 || response.data.data.product.tobacco_tax == true){
-    form.value.other_tax_type = 1;
-  }
+  // if(response.data.data.product.tobacco_tax == 1 || response.data.data.product.tobacco_tax == true){
+  //   form.value.other_tax_type = 1;
+  // }
 
-  if(response.data.data.product.additional_fee_id > 0){
-    form.value.other_tax_type = 2;
-  }
+  // if(response.data.data.product.additional_fee_id > 0){
+  //   form.value.other_tax_type = 2;
+  // }
 
   is_loaded.value = true;
   if(form.value.this_branch_inventory!=null){
@@ -997,25 +1000,25 @@ async function getProduct() {
     form.value.is_ingredients_total_price = form.value.this_branch_inventory.is_ingredients_total_price==1?true:false;
     form.value.inventory_alert_quantity = form.value.this_branch_inventory.alert_quantity;
     form.value.inventory_show_in = form.value.this_branch_inventory.show_in;
-    form.value.inventory_is_favorite = form.value.this_branch_inventory.is_favorite==1?true:false;
-    form.value.only_for_this_branch = form.value.branch_id>0?true:false;
+    // form.value.inventory_is_favorite = form.value.this_branch_inventory.is_favorite==1?true:false;
+    // form.value.only_for_this_branch = form.value.branch_id>0?true:false;
     form.value.inventory_status = form.value.this_branch_inventory.status==1?true:false;
-    form.value.is_quantity_readonly = true;
-    if (form.value.this_branch_inventory.product_prices) {
+    form.value.is_quantity_readonly =  (clone_mode.value) ? false : true;
+    // if (form.value.this_branch_inventory.product_prices) {
 
-      Object.keys(form.value.this_branch_inventory.product_prices).forEach((key) => {
-        let price = _.find(
-          multiple_prices.value,
-          (item) => item.id == form.value.this_branch_inventory.product_prices[key].multiple_price_id
-        );
-        price.product_price = form.value.this_branch_inventory.product_prices[key].product_price;
-        selected_multiple_prices.value.push(price);
-      });
-    }
+    //   Object.keys(form.value.this_branch_inventory.product_prices).forEach((key) => {
+    //     let price = _.find(
+    //       multiple_prices.value,
+    //       (item) => item.id == form.value.this_branch_inventory.product_prices[key].multiple_price_id
+    //     );
+    //     price.product_price = form.value.this_branch_inventory.product_prices[key].product_price;
+    //     selected_multiple_prices.value.push(price);
+    //   });
+    // }
   }else{
     form.value.inventory_show_in = "";
-    form.value.inventory_is_favorite = false;
-    form.value.only_for_this_branch = false;
+    // form.value.inventory_is_favorite = false;
+    // form.value.only_for_this_branch = false;
     form.value.inventory_status = true;
     form.value.is_quantity_readonly = false;
   }
@@ -1042,26 +1045,26 @@ async function getMeasurements() {
 
 
 
-const filtered_multiple_prices = computed(() => {
-  return multiple_prices.value.filter((obj1) => {
-    return !selected_multiple_prices.value.some((obj2) => obj2.id === obj1.id);
-  });
-});
+// const filtered_multiple_prices = computed(() => {
+//   return multiple_prices.value.filter((obj1) => {
+//     return !selected_multiple_prices.value.some((obj2) => obj2.id === obj1.id);
+//   });
+// });
 
-function selectMultiplePrice() {
-  if (select_multiple_price.value != "") {
-    let price = _.find(
-      multiple_prices.value,
-      (item) => item.slack == select_multiple_price.value
-    );
-    price.product_price = 0;
-    selected_multiple_prices.value.push(price);
-  }
-}
+// function selectMultiplePrice() {
+//   if (select_multiple_price.value != "") {
+//     let price = _.find(
+//       multiple_prices.value,
+//       (item) => item.slack == select_multiple_price.value
+//     );
+//     price.product_price = 0;
+//     selected_multiple_prices.value.push(price);
+//   }
+// }
 
 const categories = ref([]);
 const taxes = ref([]);
-const additional_fees = ref([]);
+// const additional_fees = ref([]);
 
 const props = defineProps(["action"]);
 const clone_mode = computed(() => {
@@ -1075,8 +1078,8 @@ async function refreshData() {
     .then((response) => {
       categories.value = response.data.data.categories;
       taxes.value = response.data.data.taxes;
-      additional_fees.value = response.data.data.additional_fees;
-      multiple_prices.value = response.data.data.multiple_prices;
+      // additional_fees.value = response.data.data.additional_fees;
+      // multiple_prices.value = response.data.data.multiple_prices;
       measurements.value = response.data.data.measurements;
       if (!_.isUndefined(slack)) {
         getProduct();
@@ -1109,11 +1112,11 @@ async function saveProduct(values) {
   form_data.append("status", values.status);
   form_data.append("image", form.value.image);
   form_data.append("tax_id", values.tax_id);
-  form_data.append("name_ar", values.name_ar);
+  // form_data.append("name_ar", values.name_ar);
   form_data.append("short_description", values.short_description);
-  form_data.append("short_description_ar", values.short_description_ar);
-  form_data.append("description", values.description);
-  form_data.append("description_ar", values.description_ar);
+  // form_data.append("short_description_ar", values.short_description_ar);
+  // form_data.append("description", values.description);
+  // form_data.append("description_ar", values.description_ar);
   form_data.append("upc", values.upc);
   form_data.append("mpn", values.mpn);
   form_data.append("ean", values.ean);
@@ -1121,24 +1124,24 @@ async function saveProduct(values) {
   form_data.append("brand", values.brand);
   form_data.append("purchase_price", values.purchase_price);
   form_data.append("price_type", values.price_type);
-  form_data.append("alert_quantity", values.alert_quantity);
+  // form_data.append("alert_quantity", values.alert_quantity);
   form_data.append("dietary", values.dietary);
   form_data.append("is_refundable", values.is_refundable);
   form_data.append("calories", values.calories);
   form_data.append("preparation_time", values.preparation_time);
   form_data.append("slack", slack);
-  form_data.append("other_tax_type", values.other_tax_type);
-  form_data.append("additional_fee_id", values.additional_fee_id!= null?values.additional_fee_id:'');
+  // form_data.append("other_tax_type", values.other_tax_type);
+  // form_data.append("additional_fee_id", values.additional_fee_id!= null?values.additional_fee_id:'');
   form_data.append("inventory_slack", values.inventory_slack);
   form_data.append("inventory_sale_price", values.inventory_sale_price);
   form_data.append("inventory_quantity", values.inventory_quantity!= null?values.inventory_quantity:0);
   form_data.append("inventory_sku", values.inventory_sku!= null?values.inventory_sku:'');
   form_data.append("inventory_alert_quantity", values.inventory_alert_quantity);
   form_data.append("inventory_show_in", (values.inventory_show_in != null) ? values.inventory_show_in : '');
-  form_data.append("inventory_is_favorite", (values.inventory_is_favorite == '1') ? true : false);
-  form_data.append("only_for_this_branch", (values.only_for_this_branch == '1') ? 1 : 0);
+  // form_data.append("inventory_is_favorite", (values.inventory_is_favorite == '1') ? true : false);
+  // form_data.append("only_for_this_branch", (values.only_for_this_branch == '1') ? 1 : 0);
   form_data.append("inventory_status", (values.inventory_status == '1') ? true : false);
-  form_data.append("multiple_prices",JSON.stringify(selected_multiple_prices.value));
+  // form_data.append("multiple_prices",JSON.stringify(selected_multiple_prices.value));
   if (values.is_stockable) {
     if (values.stock_measurement_unit_id != "") {
       form_data.append(
@@ -1202,9 +1205,9 @@ if (layout.value == 2) {
   });
 }
 
-const is_tobacco_or_fee = computed(() => {
-  return authStore.isTobaccoOrFee;
-});
+// const is_tobacco_or_fee = computed(() => {
+//   return authStore.isTobaccoOrFee;
+// });
 
 async function selectType(){
   if(event.target.value==4){
@@ -1212,25 +1215,25 @@ async function selectType(){
   }
 }
 
-function removePrice(id) {
-  selected_multiple_prices.value = _.filter(
-    selected_multiple_prices.value,
-    (item) => item.id != id
-  );
-}
+// function removePrice(id) {
+//   selected_multiple_prices.value = _.filter(
+//     selected_multiple_prices.value,
+//     (item) => item.id != id
+//   );
+// }
 
-async function checkCategory(){
+// async function checkCategory(){
 
-  var sel_cate_tobacco_status = categories.value.find(function (elem) {
-    if (elem.id == form.value.categories && elem.is_tobacco_tax == 1) return true;
-  });
-  if(sel_cate_tobacco_status != undefined && sel_cate_tobacco_status.is_tobacco_tax == 1)
-  {
-    form.value.other_tax_type = 1;
-  }
-  else{
-    form.value.other_tax_type = "";
-  }
-}
+//   var sel_cate_tobacco_status = categories.value.find(function (elem) {
+//     if (elem.id == form.value.categories && elem.is_tobacco_tax == 1) return true;
+//   });
+//   if(sel_cate_tobacco_status != undefined && sel_cate_tobacco_status.is_tobacco_tax == 1)
+//   {
+//     form.value.other_tax_type = 1;
+//   }
+//   else{
+//     form.value.other_tax_type = "";
+//   }
+// }
 
 </script>

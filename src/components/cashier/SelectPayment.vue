@@ -484,6 +484,7 @@ const { placeOrder } = useGlobalFunctions();
 const change = ref(0);
 
 async function close() {
+
   is_processing.value = true;
 
   let response = await placeOrder();
@@ -502,13 +503,29 @@ async function close() {
 
     is_processing.value = false;
 
-    window.open(
-      response.data.data.receipt_link,
-      "_blank" // <- This is what makes it open in a new window.
-    );
+    /* Check If silent printing is enabled or not */
+    if(authStore.user.login_branch.enable_silent_printing){
+        const resp = await axios.get(`/api/order-receipt/${response.data.data.order.slack}`, {
+          responseType: 'blob', 
+        });
+        const url = URL.createObjectURL(new Blob([resp.data], { type: 'application/pdf' }));
+        const iframe = document.createElement('iframe');
+        iframe.style.display = 'none';
+        iframe.src = url;
+        document.body.appendChild(iframe);
+        iframe.onload = () => {
+          iframe.contentWindow.print();
+          setTimeout(() => document.body.removeChild(iframe), 1000);
+        };
+    }else{
+      window.open(
+        response.data.data.receipt_link,
+        "_blank" 
+      );
+    }
+
   } else {
     toast.error(response.data.msg);
-
     is_processing.value = false;
   }
 }

@@ -104,6 +104,8 @@
         <ListingSkeleton />
       </div>
       <div v-else class="table-responsive">
+        <AsyncServerMessage v-if="server_messages.messages != ''" :server_messages="server_messages"  />
+
         <!--    Transfer To List    -->
         <table class="table table-list-data table-hover">
           <thead class="bg-light">
@@ -156,6 +158,11 @@
               <div v-if="permissions.write && permissions.delete" >
               <div class="row flex-nowrap gx-2 text-end">
                 <div class="col-auto">
+                  <button v-if="invoice.status == 1 && zatca && !invoice.zatcaResponse" @click="signStandardInvoice(invoice.slack)" :disabled="is_signing" target="_blank" type="button" class="btn btn-xs btn-warning ms-2">
+                    E-Sign
+                  </button> 
+                </div>
+                <div class="col-auto">
                   <a v-if="permissions.write && invoice.status==0" class="btn btn-icon btn-xs btn-light" href="#" @click="editInvoice(invoice.slack)" >
                       <Icon icon="fa6-solid:pen" class="fs-5 text-default" />
                   </a>
@@ -177,6 +184,7 @@
                       </svg>
                   </a>  
                 </div>
+               
               </div>
               </div>
               
@@ -216,9 +224,15 @@ import VueDatePicker from '@vuepic/vue-datepicker';
 import {ref, onMounted, reactive, watch, defineComponent, computed} from "vue";
 import useGlobalFunctions from '@/composables/global_functions.js';
 import { useI18n } from 'vue-i18n'
+const AsyncServerMessage = defineAsyncComponent( () => import('@/components/common/ServerMessage.vue') );
 
 const { t } = useI18n();
 const { isAuthorized } = useGlobalFunctions();
+
+const server_messages = reactive({
+        type : "",
+        messages : "",
+});
 
 const AsyncAddInvoice = defineAsyncComponent(() => import('@/components/invoice/AddInvoice.vue'));
 
@@ -228,10 +242,6 @@ const labels = ref({
   select_customer: t("Select Customer")
 });
 const initialState = {
-  server_messages: {
-    type: "",
-    messages: "",
-  },
   is_listing: false,
   // form data
   search_query: ref(""),
@@ -243,7 +253,8 @@ const form = reactive({...initialState});
 onMounted(() => {
   checkPermissions();
   getInvoices();
-  // getCustomers() // Continue: commented due to n+1 problem, requires new API 
+  // getCustomers() // Continue: commented due to n+1 problem, requires new API
+  getZatca();
 });
 
 watch(() =>
@@ -273,8 +284,8 @@ async function getInvoices(page = 1) {
     form.is_listing = false;
 
   }).catch((error) => {
-    form.server_messages.type = "error";
-    form.server_messages.messages = error;
+    server_messages.type = "error";
+    server_messages.messages = error;
     form.is_listing = false;
     console.log(error);
   });
@@ -393,17 +404,17 @@ async function deleteInvoice(slack) {
 
       } else {
         try {
-          form.server_messages.type = "error";
-          form.server_messages.messages = JSON.parse(response.data.msg);
+          server_messages.type = "error";
+          server_messages.messages = JSON.parse(response.data.msg);
         } catch (err) {
-          form.server_messages.type = "error";
-          form.server_messages.messages = response.data.msg;
+          server_messages.type = "error";
+          server_messages.messages = response.data.msg;
         }
       }
 
     }).catch((error) => {
-      form.server_messages.type = "error";
-      form.server_messages.messages = error;
+      server_messages.type = "error";
+      server_messages.messages = error;
       console.log(error);
     });
   }
@@ -431,4 +442,51 @@ function returnInvoice(slack){
 }
 
 const asyncReturnInvoiceModal = defineAsyncComponent( () => import('@/components/invoice/ReturnInvoiceModal.vue') );
+
+/* Zatca Phase 2 */
+const zatca = ref("");
+async function getZatca(){
+      const response = await axios.get('/api/v2/zatca/merchant');
+      if (response.data.status_code == 200 || response.data.status_code == 201 ) {
+          zatca.value = response.data.data;
+      }
+}
+
+const is_signing = ref(false);
+
+async function signStandardInvoice(slack) {
+  is_signing.value = true;
+  
+  try {
+    const response = await axios.post('/api/v2/zatca/signStandardInvoice', { slack });
+
+    is_signing.value = false;
+    
+    const responseData = response.data;
+    
+    if (responseData.status_code === 200 && responseData.data?.res) {
+      // Successful Response
+      toast.success("Invoice signed successfully!");
+      getOrders();
+      
+    } else {
+      // Validation Error or Failed Response
+      server_messages.type = "error";
+
+      if (responseData.data?.errors) {
+        // Extract validation errors
+        server_messages.messages = Object.values(responseData.data.errors).flat().join(', ');
+      } else {
+        server_messages.messages = responseData.data?.message || "An unknown error occurred.";
+      }
+    }
+    
+  } catch (error) {
+    // Handle Network or Server Errors
+    is_signing.value = false;
+    server_messages.type = "error";
+    server_messages.messages = error.response?.data?.message || "Something went wrong.";
+    console.error(error);
+  }
+}
 </script>

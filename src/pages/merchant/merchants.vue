@@ -14,12 +14,23 @@
       <div class="page-heading">
         <div class="row align-items-center justify-content-between">
           <div class="col-auto">
-                <div class="row align-items-center">
-                    <div class="col-auto" v-if="permissions.write">
-                        <router-link class="btn btn-sm btn-light-primary" to="/merchant/add" >+ {{ $t('New Merchant') }}</router-link>
-                    </div>
-                </div>
+            <div class="row align-items-center">
+              <div
+                class="col-auto"
+                v-if="
+                  permissions.write ||
+                  authStore.isAdmin ||
+                  authStore.user.allow_adding_merchants
+                "
+              >
+                <router-link
+                  class="btn btn-sm btn-light-primary"
+                  to="/merchant/add"
+                  >+ {{ $t("New Merchant") }}</router-link
+                >
+              </div>
             </div>
+          </div>
           <div class="col-auto">
             <div class="row align-items-center">
               <div class="col-auto">
@@ -76,7 +87,7 @@
                         </div>
                       </div>
                       <div class="row gx-3">
-                        <div class="col-6">
+                        <div class="col-12">
                           <div class="form-field">
                             <label class="form-label">{{ $t("Status") }}</label>
                             <select
@@ -87,6 +98,26 @@
                               <option value="1">{{ $t("Active") }}</option>
                               <option value="0">{{ $t("Inactive") }}</option>
                             </select>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row gx-3" v-if="!isThirdParty">
+                        <div class="col-12">
+                          <div class="form-field">
+                            <label class="form-label">{{
+                              $t("Referral Account")
+                            }}</label>
+                            <VMultiSelect
+                              name="referral_account_id"
+                              :label="referral_account"
+                              :placeholder="referral_account"
+                              :text="'name'"
+                              :value="'id'"
+                              :options="referralAccountsList"
+                              v-model="filter.referral_account_id"
+                              mode="single"
+                              :selected="filter.referral_account_id"
+                            />
                           </div>
                         </div>
                       </div>
@@ -194,7 +225,9 @@
                   >{{ $t("Expired") }}</span
                 >
                 <span
-                  v-if="![0, 1, 2, 3, 4].includes(merchant.user_subscription.status)"
+                  v-if="
+                    ![0, 1, 2, 3, 4].includes(merchant.user_subscription.status)
+                  "
                   class="badge badge-danger"
                   >{{ $t("Not Subscribed") }}</span
                 >
@@ -274,6 +307,10 @@ const { t } = useI18n();
 
 const authStore = useAuthStore();
 
+const isThirdParty = computed(() => {
+  return authStore.user.is_third_party;
+});
+
 const show_add_branch_modal = ref(false);
 
 function openAddMerchantModal() {
@@ -312,6 +349,7 @@ watch(
 
 const merchants = ref([]);
 const pagination = ref([]);
+const referralAccountsList = ref([]);
 
 async function getMerchants(page = 1) {
   form.is_listing = true;
@@ -328,6 +366,7 @@ async function getMerchants(page = 1) {
     .then((response) => {
       merchants.value = response.data.data;
       pagination.value = response.data.pagination;
+      referralAccountsList.value = response.data.referral_accounts;
       form.is_listing = false;
     })
     .catch((error) => {
@@ -376,6 +415,7 @@ const initial_filter = reactive({
   created_date: ref(),
   status: ref(""),
   type: ref(""),
+  referral_account_id: ref(""),
 });
 const filter = reactive({ ...initial_filter });
 // var initial_filter = JSON.stringify(JSON.parse(JSON.stringify(filter)));

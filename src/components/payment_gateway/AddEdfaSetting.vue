@@ -120,7 +120,7 @@ const labels = ref({
   password: t("Password"),
   sms_template: t("SMS Template"),
   sms_note: t("Note: Square bracket([ ]) words will replace with the data like 'Your invoice number:[INVOICE_NUMBER]' to 'Your invoice number:001' in SMS"),
-  edfa_note1: t("1. If you are using the EDFAPAY then set \"https://wosul.sa/edfapay/capture_invoice_payment\" URL as Notify URL to EDFAPAY Portal."),
+  edfa_note1: t("1. If you are using the EDFAPAY then set \"https://avinyadev.com.sa/edfapay/capture_invoice_payment\" URL as Notify URL to EDFAPAY Portal."),
   edfa_note2: t("2. Contact the EDFAPAY support team for add the Notify URL."),
 });
 

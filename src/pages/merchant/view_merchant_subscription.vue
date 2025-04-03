@@ -14,6 +14,13 @@
           <div class="col-auto">
             <h5 class="fw-bold">{{ subscription.name }}</h5>
           </div>
+          <div class="col-auto ms-auto">
+            <a class="btn btn-sm btn-light-danger"
+               href="#"
+               data-bs-toggle="modal"
+               @click="openEditSubscriptionModal()"
+               data-bs-target="#EditSubscriptionModal">Edit</a>
+          </div>
         </div>
       </div>
     </template>
@@ -339,6 +346,10 @@
       </Form>
 
     </div>
+
+    <!-- Renew Subscription Modal -->
+    <AsyncEditSubscriptionModal ref="edit_subscription_modal" :show_edit_subscription_modal="show_edit_subscription_modal" @closeEditSubscriptionModal="closeEditSubscriptionModal" :subscription="subscription"/>
+
   </DefaultLayout>
 </template>
 
@@ -351,6 +362,8 @@ import { useCrmAddonStore } from '@/stores/crmAddonStore';
 import * as yup from "yup";
 
 const crmAddonStore = useCrmAddonStore();
+
+const AsyncEditSubscriptionModal = defineAsyncComponent( () => import('@/components/merchant/EditSubscriptionModal.vue') );
 
 const { t } = useI18n();
 const route = useRoute();
@@ -534,6 +547,19 @@ function resetData() {
 
 async function selectFile(e) {
   form.payment_receipt = e.target.files[0];
+}
+
+
+/* Subscription Edit Modal */
+const show_edit_subscription_modal = ref(false);
+
+function openEditSubscriptionModal(){
+  $('#editSubscriptionModal').modal('show');
+}
+function closeEditSubscriptionModal(){
+  show_edit_subscription_modal.value = false;
+  $('#editSubscriptionModal').modal('hide');
+  getSubscriptionDetail();
 }
 
 </script>

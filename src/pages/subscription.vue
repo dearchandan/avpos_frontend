@@ -222,7 +222,7 @@
                       checked
                     />
                     <label class="form-check-label" for="Addons1"
-                      >Wosul Pay</label
+                      >AvPOS Pay</label
                     >
                   </div>
                 </div>

@@ -72,7 +72,7 @@
                         required
                         :options="subscription_categories"
                         v-model="form.subscription_category"
-                        tooltip="Plan: POS Package, Service: Wosul Pay "
+                        tooltip="Plan: POS Package, Service: AvPOS Pay "
                       />
                     </div>
 

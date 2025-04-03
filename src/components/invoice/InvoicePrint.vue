@@ -17,7 +17,7 @@
                       <tr>
                         <td colspan="2">
                           <img
-                            alt="Wosul logo"
+                            alt="AvPOS logo"
                             width="100px"
                             style="
                               max-width: 100%;
@@ -85,7 +85,7 @@
                       <tr>
                         <td>
                           <h3 style="margin: 0 0 5px; font-size: 26px">
-                            Wosul store
+                            AvPOS store
                           </h3>
                           <p
                             style="
