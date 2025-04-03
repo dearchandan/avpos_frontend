@@ -35,14 +35,14 @@
                                         :required="true"
                                     />
                                 </div>
-                                <div class="col-md-6">
+                                <!-- <div class="col-md-6">
                                     <VTextInput
                                         type="text" 
                                         name="category_name_ar"
                                         v-model="form.category_name_ar"
                                         :label="category_name_ar_placeholder" 
                                     />
-                                </div>
+                                </div> -->
                             <!-- </div>
 
                             <div class="row mt-4"> -->
@@ -57,7 +57,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-4">
+                                <div class="col-4 pt-4">
                                     <div class="form-field">
                                         <div class="form-check form-switch ">
                                             <input class="form-check-input me-2" type="checkbox" role="switch" id="status" checked v-model="form.status">
@@ -72,23 +72,23 @@
                             
                             <div class="row mt-4"> -->
 
-                                <div class="col-4">
+                                <!-- <div class="col-4">
                                     <div class="form-field">
                                         <div class="form-check form-switch ">
                                             <input class="form-check-input me-2" type="checkbox" role="switch" id="is_favorite" v-model="form.is_favorite">
                                             <label class="form-check-label" for="is_favorite">{{ $t('Is Favorite') }}</label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                                 
-                                <div class="col-4" >
+                                <!-- <div class="col-4" >
                                     <div class="form-field">
                                         <div class="form-check form-switch ">
                                             <input class="form-check-input me-2" type="checkbox" role="switch" id="status" v-model="form.is_tobacco_tax">
                                             <label class="form-check-label" for="status">{{ $t('Tobacco Tax') }}</label>
                                         </div>
                                     </div>
-                                </div>
+                                </div> -->
                             </div>
                             
                             <input type="hidden" v-model="form.category_slack" />
@@ -148,10 +148,10 @@
       category_name: "",
       parent_category: "",
       category_name_ar: "",
-      is_favorite: false,
+    //   is_favorite: false,
       status: true,
       image: "",
-      is_tobacco_tax: false,
+    //   is_tobacco_tax: false,
     };
 
     const form = reactive({ ...initialState });
@@ -164,7 +164,7 @@
               number: 20,
             })
         ),
-        is_favorite: yup.bool().label('is favorite'),
+        // is_favorite: yup.bool().label('is favorite'),
         status: yup.bool().label('status'),
     });
 
@@ -179,7 +179,7 @@
     const edit_data = toRef(props,'edit_data')
     const parent_placeholder = t('Select Parent');
     const category_name_placeholder = t('Category Name');
-    const category_name_ar_placeholder = t('Category Name (Arabic)');
+    // const category_name_ar_placeholder = t('Category Name (Arabic)');
     function closeModal(){
         document.getElementById("add_category_form").reset();
         resetData();
@@ -203,10 +203,10 @@
                 form.category_name_ar = value.name_ar != null?value.name_ar:"";
                 form.status = value.status == 1?true:false;
                 form.is_favorite = value.is_favorite == 1?true:false;
-                form.is_tobacco_tax = value.is_tobacco_tax == 1?true:false;
+                // form.is_tobacco_tax = value.is_tobacco_tax == 1?true:false;
                 form.parent_category = value.parent_id != null?value.parent_id:"";
                 form.category_slack = value.slack;
-                form.is_tobacco_tax = value.is_tobacco_tax == 1?true:false;
+                // form.is_tobacco_tax = value.is_tobacco_tax == 1?true:false;
             }
         }
     );
@@ -293,7 +293,7 @@
         form_data.append('category_name_ar',form.category_name_ar);
         form_data.append('is_favorite',form.is_favorite);
         form_data.append('status',form.status);
-        form_data.append('is_tobacco_tax',form.is_tobacco_tax);
+        // form_data.append('is_tobacco_tax',form.is_tobacco_tax);
         form_data.append('image',form.image);
         form_data.append('category_slack',form.category_slack);
 
