@@ -26,14 +26,14 @@
                                         :required="true"
                                     />
                                 </div>
-                                <div class="col-md-12">
+                                <!-- <div class="col-md-12">
                                     <VTextInput
                                         type="text" 
                                         name="option_name_ar"
                                         v-model="form.option_name_ar"
                                         :label="labels.option_name_ar"
                                     />
-                                </div>
+                                </div> -->
 
                                 <div class="col-12 mb-4">
                                     <VSelectInput

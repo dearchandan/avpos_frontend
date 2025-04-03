@@ -39,15 +39,15 @@
                                 required
                             />
                           </div>
-                          <div class="col-md-4">
+                          <!-- <div class="col-md-4">
                             <VTextInput
                                 type="text"
                                 name="account_name_ar"
                                 v-model="form.account_name_ar"
                                 :label="labels.account_name_ar"
                             />
-                          </div>
-                          <div class="col-md-6">
+                          </div> -->
+                          <!-- <div class="col-md-6">
                             <div class="form-field">
                                 <label>{{ $t("Description") }}</label>
                                 <textarea
@@ -58,8 +58,8 @@
                                     cols="3"
                                 ></textarea>
                             </div>
-                          </div>
-                          <div class="col-md-6">
+                          </div> -->
+                          <!-- <div class="col-md-6">
                             <div class="form-field">
                                 <label>{{ $t("Description (Arabic)") }}</label>
                                 <textarea
@@ -70,7 +70,7 @@
                                     cols="3"
                                 ></textarea>
                             </div>
-                          </div>
+                          </div> -->
                           <div class="col-md-4">
                             <VTextInput
                                 type="number"

@@ -25,15 +25,15 @@
                                   :required="true"
                               />
                             </div>
-                            <div class="col-6">
+                            <!-- <div class="col-6">
                               <VTextInput
                                   type="text"
                                   name="measurement_name_ar"
                                   v-model="form.measurement_name_ar"
                                   label="Measurement Name (Arabic)"
                               />
-                            </div>
-                            <div class="col-md-6">
+                            </div> -->
+                            <div class="col-md-6 pt-4">
                               <div class="form-field">
                                 <div class="form-check form-switch">
                                   <input class="form-check-input me-2" type="checkbox" role="switch" id="status" checked v-model="form.status">
@@ -48,9 +48,9 @@
                               <thead>
                               <tr>
                                 <th width="25%">{{ $t('Measurement Unit') }}</th>
-                                <th width="25%">{{ $t('Measurement Unit')  }} ({{$t("Arabic")}})</th>
+                                <!-- <th width="25%">{{ $t('Measurement Unit')  }} ({{$t("Arabic")}})</th> -->
                                 <th width="">{{ $t('Abbreviation') }}</th>
-                                <th width="">{{ $t('Abbreviation') }} ({{$t("Arabic")}})</th>
+                                <!-- <th width="">{{ $t('Abbreviation') }} ({{$t("Arabic")}})</th> -->
                                 <th></th>
                                 <th></th>
                               </tr>
@@ -67,7 +67,7 @@
                                          class="form-control form-control-solid"
                                     /> 
                                 </td>
-                                <td>
+                                <!-- <td>
                                   
                                   <input
                                         type="text" 
@@ -76,7 +76,7 @@
                                         placeholder="Ex. كيلوغرام"
                                          class="form-control form-control-solid"
                                     /> 
-                                </td>
+                                </td> -->
                                 <td>
                                   <input
                                         type="text" 
@@ -86,7 +86,7 @@
                                          class="form-control form-control-solid"
                                     />
                                 </td>
-                                <td>
+                                <!-- <td>
                                   <input
                                         type="text" 
                                         name="abbreviation_ar"
@@ -94,7 +94,7 @@
                                         placeholder="Ex. kg"
                                          class="form-control form-control-solid"
                                     />
-                                </td>
+                                </td> -->
                                 <td>
                                   <button class="btn btn-icon btn-light btn-sm" @click="removeOption(unit)" :disabled="measurement_units.length>1 ? false : true"><Icon icon="material-symbols:cancel-outline-rounded" class="text-danger" /></button>
                                 </td>

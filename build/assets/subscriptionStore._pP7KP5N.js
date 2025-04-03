@@ -1,1 +1,0 @@
-import{a4 as s}from"./index.GdMxdeuf.js";const r=s("subscriptionStore",{state:()=>({cart_subscription_id:""}),actions:{resetState(){this.$reset()},async setSubscriptionId(t){this.cart_subscription_id=t}},getters:{getsubscriptionId(){return this.cart_subscription_id}},persist:!0});export{r as u};

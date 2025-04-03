@@ -52,14 +52,14 @@
                       />
                     </div>
 
-                    <div class="col-6 col-md-4 col-lg-3">
+                    <!-- <div class="col-6 col-md-4 col-lg-3">
                       <VTextInput
                         type="text"
                         name="name_ar"
                         :label="labels.name_ar"
                         v-model="form.name_ar"
                       />
-                    </div>
+                    </div> -->
 
                     <div class="col-12 col-md-4 col-lg-3">
                       <div class="form-field">

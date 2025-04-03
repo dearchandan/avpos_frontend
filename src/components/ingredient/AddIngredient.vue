@@ -228,14 +228,14 @@
                   {{ $t("Optional Details") }}:
                 </h5>
 
-                <div class="col-12 col-md-4 col-lg-3">
+                <!-- <div class="col-12 col-md-4 col-lg-3">
                   <VTextInput
                       type="text"
                       name="name_ar"
                       :label="labels.name_ar"
                       v-model="form.name_ar"
                   />
-                </div>
+                </div> -->
 
                 <div class="col-12 col-md-4 col-lg-3">
                   <div class="form-field">
@@ -258,7 +258,7 @@
                   </div>
                 </div>
 
-                <div class="col-6 col-md-4 col-lg-2">
+                <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
                       type="number"
                       name="purchase_price"
@@ -274,7 +274,7 @@
                   />
                 </div>
 
-                <div class="col-6 col-md-4 col-lg-2">
+                <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
                       type="number"
                       name="alert_quantity"
@@ -283,7 +283,7 @@
                   />
                 </div>
 
-                <div class="col-6 col-md-4 col-lg-2">
+                <div class="col-6 col-md-4 col-lg-3">
                   <VTextInput
                       type="text"
                       name="upc"
@@ -301,16 +301,16 @@
                   />
                 </div>
 
-                <div class="col-12 col-md-4 col-lg-3">
+                <!-- <div class="col-12 col-md-4 col-lg-3">
                   <VTextInput
                       type="text"
                       name="short_description_ar"
                       :label="labels.short_description_ar"
                       v-model="form.short_description_ar"
                   />
-                </div>
+                </div> -->
 
-                <div class="col-12 col-md-4 col-lg-3">
+                <!-- <div class="col-12 col-md-4 col-lg-3">
                   <div class="form-field">
                     <label>{{ $t("Description") }}</label>
                     <Field
@@ -323,9 +323,9 @@
                         v-model="form.description"
                     ></Field>
                   </div>
-                </div>
+                </div> -->
 
-                <div class="col-12 col-md-4 col-lg-3">
+                <!-- <div class="col-12 col-md-4 col-lg-3">
                   <div class="form-field">
                     <label>{{ $t("Description (Arabic)") }}</label>
                     <Field
@@ -337,7 +337,7 @@
                         v-model="form.description_ar"
                     ></Field>
                   </div>
-                </div>
+                </div> -->
               </div>
 
             </div>
@@ -360,7 +360,7 @@
                   />
                 </div>
 
-                <div class="col-6 col-md-3 col-lg-2">
+                <div class="col-6 col-md-3 col-lg-3">
                   <VTextInput
                       type="text"
                       name="inventory_sku"
@@ -369,7 +369,7 @@
                   />
                 </div>
 
-                <div class="col-6 col-md-3 col-lg-2" v-if="values.is_stockable==true">
+                <div class="col-6 col-md-3 col-lg-3" v-if="values.is_stockable==true">
                   <VTextInput
                       type="number"
                       name="inventory_alert_quantity"
@@ -378,7 +378,7 @@
                   />
                 </div>
 
-                <div class="col-md-auto col-lg-auto">
+                <!-- <div class="col-md-auto col-lg-auto">
                   <VRadio
                       type="radio"
                       name="inventory_show_in"
@@ -390,9 +390,9 @@
                             setFieldValue('inventory_show_in', event.target.value)
                         "
                   />
-                </div>
+                </div> -->
 
-                <div class="col-auto col-lg-auto">
+                <!-- <div class="col-auto col-lg-auto">
                   <div class="form-field" type="radio">
                     <label class="label"> {{ $t('Is Favorite') }}</label>
                     <div class="form-check form-switch mt-md-3">
@@ -402,7 +402,7 @@
                         ">
                     </div>
                   </div>
-                </div>
+                </div> -->
 
                 <div class="col-auto col-lg-auto">
                   <div class="form-field" type="radio">
@@ -494,7 +494,7 @@ const labels = ref({
   branch_ingredient_tooltip: t('Stock only for this branch.'),
   sales_price_inc_tax: t('Sale Price (Incl. Tax)'),
   sales_price_exc_tax: t('Sale Price (Excl. Tax)'),
-  quantity: t('Quantity'),
+  quantity: t('Quantity In Hand'),
   sku: t('SKU'),
   show_in: t('Show In'),
   unit: t('Unit'),

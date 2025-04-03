@@ -25,15 +25,15 @@
                                     :required="true"
                                 />
                             </div>
-                            <div class="col-md-6">
+                            <!-- <div class="col-md-6">
                                 <VTextInput
                                     type="text" 
                                     name="modifier_name_ar"
                                     v-model="form.modifier_name_ar"
                                     :label="labels.modifier_name_ar" 
                                 />
-                            </div>
-                            <div class="col">
+                            </div> -->
+                            <div class="col pt-4">
                                 <div class="form-field">
                                     <div class="form-check form-switch ">
                                         <input class="form-check-input me-2" type="checkbox" role="switch" id="status" v-model="form.allow_multiple_selections">
